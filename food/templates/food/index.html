@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet"  href="{% static 'food/style.css' %}">
+</head>
+<body>
+{% if messages %}
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+{% endif %}
+<br>
+{% if user.is_authenticated %}
+<a href="{% url 'logout' %}"><button type="button">Logout</button></a>
+{% else %}
+<a href="{% url 'login' %}"><button type="button">Login</button></a>
+{% endif %}
+<br>
+<a href="{% url 'profile' %}">Profile</a>
+<br>
+<a href="{% url 'food:create_item' %}"> Add Item </a>
+<h1> List of Items </h1>
+{% for item in item_list %}
+
+<ul>
+    <li>
+        <a href="{% url 'food:details' item.id %}">{{item.id}} -- {{item.item_name}}---{{item.user_name}}</a>
+        <img src="https://images.unsplash.com/photo-1430163393927-3dab9af7ea38?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width="300px" height="300px" alt="Image of item"/>
+    </li>
+</ul>
+
+{% endfor %}
+</body>
+</html>
